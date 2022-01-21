@@ -1,43 +1,33 @@
+#if UNITY_EDITOR
+
 using UnityEditor;
 using UnityEngine;
 using System.Linq;
 
-#if UNITY_EDITOR
 [CustomEditor(typeof(SiegeUpModBase))]
 public class SiegeUpModGUI : Editor
 {
+	private SiegeUpModBase instance;
+
+	private void OnEnable() => instance = (SiegeUpModBase)target;
+
 	public override void OnInspectorGUI()
 	{
-		SiegeUpModBase instance = (SiegeUpModBase)target;
-
-		GUILayout.BeginHorizontal(); 
-		GUILayout.Label("Mod name", GUILayout.MaxWidth(80)); 
-		instance.ModInfo.ModName = GUILayout.TextField(instance.ModInfo.ModName); 
-		GUILayout.EndHorizontal();
-
-		GUILayout.BeginHorizontal(); 
-		GUILayout.Label("Author name", GUILayout.MaxWidth(80)); 
-		instance.ModInfo.AuthorName = GUILayout.TextField(instance.ModInfo.AuthorName); 
-		GUILayout.EndHorizontal();
-
-		GUILayout.BeginHorizontal(); 
-		GUILayout.Label("Description", GUILayout.MaxWidth(80)); 
-		instance.ModInfo.Description = GUILayout.TextArea(instance.ModInfo.Description); 
-		GUILayout.EndHorizontal();
-
-		GUILayout.BeginHorizontal(); 
-		GUILayout.Label("Version", GUILayout.MaxWidth(80)); 
-		instance.ModInfo.Version = EditorGUILayout.IntField(instance.ModInfo.Version); 
-		GUILayout.EndHorizontal();
-
 		GUILayout.Space(5);
+		GUILayout.BeginVertical("box");
+		GUILayout.BeginHorizontal();
 		GUILayout.Label("Build for platform:");
+#if UNITY_EDITOR_WIN
+		if (GUILayout.Button("Open output folder"))
+			System.Diagnostics.Process.Start("explorer.exe", FileUtils.GetModFolder(instance.ModInfo.ModName));
+#endif
+		GUILayout.EndHorizontal();
 
 		GUILayout.BeginHorizontal();
 		int buttonIndex = 0;
 		foreach (var platform in BundleBuildingTool.SupportedPlatforms)
 		{
-			if (GUILayout.Button(platform.Value.ShortName))
+			if (GUILayout.Button(platform.Value))
 				BundleBuildingTool.BuildAssetBundle(instance, platform.Key);
 			buttonIndex++;
 			if (buttonIndex % 3 == 0)
@@ -51,7 +41,8 @@ public class SiegeUpModGUI : Editor
 		if (GUILayout.Button("All", GUILayout.Height(25)))
 			BundleBuildingTool.BuildAssetBundle(instance, BundleBuildingTool.SupportedPlatforms.Keys.ToArray());
 
-		GUILayout.Space(10);
+		GUILayout.EndVertical();
+		GUILayout.Space(5);
 
 		base.OnInspectorGUI();
 	}

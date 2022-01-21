@@ -306,6 +306,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 178181696317255958, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: prefabId
       value: 
@@ -368,7 +372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3086198164710309990, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3086198164710309990, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
       propertyPath: m_LocalScale.y
@@ -376,7 +380,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3086198164710309990, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.27
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3717911934725059617, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
       propertyPath: populationSlots

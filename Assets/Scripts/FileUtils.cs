@@ -12,15 +12,17 @@ public class FileUtils
 
     public static string GetModFolder(string modName)
 	{
-        return Path.Combine(
+        string path = Path.Combine(
             Environment.GetFolderPath(
-                Environment.SpecialFolder.ApplicationData), 
-                    "..", 
-                    "LocalLow", 
-                    "Zdorovtsov", 
-                    "SiegeUp!", 
+                Environment.SpecialFolder.ApplicationData),
+                    "..",
+                    "LocalLow",
+                    "Zdorovtsov",
+                    "SiegeUp!",
                     "mods",
-                    modName.ToLower());
+                    modName);
+        CheckOrCreateDirectory(path);
+        return path;
 	}
 
     public static void CreateModManifest(string modDirectory, SiegeUpModMeta modInfo)

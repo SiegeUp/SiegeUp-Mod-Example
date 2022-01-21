@@ -12,6 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 332e0c2a4f794d5478e7ce85f08dc1c8, type: 3}
   m_Name: New Siege Up Mod
   m_EditorClassIdentifier: 
-  Decorations:
-  - {fileID: 5497554386102302948, guid: ea6c9ed481a38a540b1d2cb608e354ce, type: 3}
-  - {fileID: 2002179553061330718, guid: 3775e7bed65bba540868d7fc4a821ffd, type: 3}
+  Decorations: []

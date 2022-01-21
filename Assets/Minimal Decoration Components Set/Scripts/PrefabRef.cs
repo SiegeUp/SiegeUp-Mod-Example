@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 
 [ExecuteInEditMode]
 public class PrefabRef : MonoBehaviour
