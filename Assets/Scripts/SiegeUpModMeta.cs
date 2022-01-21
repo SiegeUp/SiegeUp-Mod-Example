@@ -3,5 +3,5 @@ public class SiegeUpModMeta
     public string ModName = "";
     public string AuthorName = "";
     public string Description = "";
-    public string Version = "";
+    public int Version = 1;
 }

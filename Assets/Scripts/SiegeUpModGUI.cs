@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using System.Linq;
@@ -28,7 +27,7 @@ public class SiegeUpModGUI : Editor
 
 		GUILayout.BeginHorizontal(); 
 		GUILayout.Label("Version", GUILayout.MaxWidth(80)); 
-		instance.ModInfo.Version = GUILayout.TextField(instance.ModInfo.Version); 
+		instance.ModInfo.Version = EditorGUILayout.IntField(instance.ModInfo.Version); 
 		GUILayout.EndHorizontal();
 
 		GUILayout.Space(5);
