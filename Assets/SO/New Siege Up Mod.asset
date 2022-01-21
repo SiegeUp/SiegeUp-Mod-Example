@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 332e0c2a4f794d5478e7ce85f08dc1c8, type: 3}
+  m_Name: New Siege Up Mod
+  m_EditorClassIdentifier: 
+  Decorations:
+  - {fileID: 5497554386102302948, guid: ea6c9ed481a38a540b1d2cb608e354ce, type: 3}
+  - {fileID: 2002179553061330718, guid: 3775e7bed65bba540868d7fc4a821ffd, type: 3}
