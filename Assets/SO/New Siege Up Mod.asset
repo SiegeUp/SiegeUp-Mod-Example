@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 332e0c2a4f794d5478e7ce85f08dc1c8, type: 3}
   m_Name: New Siege Up Mod
   m_EditorClassIdentifier: 
+  ModInfo:
+    ModName: Sample mod
+    AuthorName: Some author
+    Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
+      sed tortor eu nunc lobortis mattis et in justo. Suspendisse vehicula sem a
+      aliquam sollicitudin. Fusce eget tempus justo. Nunc vel consectetur felis,
+      sit amet laoreet arcu. Suspendisse in imperdiet risus. Vestibulum sed neque
+      malesuada ipsum mattis tristique. Vivamus vel varius nisi. Donec non fringilla
+      mauris. Nunc blandit laoreet ipsum ac volutpat.
+    Version: 1
   Decorations: []

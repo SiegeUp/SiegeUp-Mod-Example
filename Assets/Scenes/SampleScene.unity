@@ -310,14 +310,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: prefabId
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 178181696317255958, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1382838407652713805, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
       propertyPath: passable
       value: 0
@@ -369,6 +361,10 @@ PrefabInstance:
     - target: {fileID: 2567065135057724286, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
       propertyPath: m_Name
       value: Decoration example
+      objectReference: {fileID: 0}
+    - target: {fileID: 2567065135057724286, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3086198164710309990, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
       propertyPath: m_LocalScale.x

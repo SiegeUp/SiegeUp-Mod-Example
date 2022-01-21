@@ -15,6 +15,7 @@ public class BundleBuildingTool
 
     public static void BuildAssetBundle(SiegeUpModBase modBase, params BuildTarget[] targetPlatforms)
 	{
+        PrefabManager.updatePrefabManager();
         string modDirectory = FileUtils.GetModFolder(modBase.ModInfo.ModName);
         Debug.Log("Output directory: " + modDirectory);      
 

@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
 
-[ExecuteInEditMode]
 public class PrefabRef : MonoBehaviour
 {
+    [HideInInspector]
     public string prefabId;
+    [HideInInspector]
     public bool ignore;
-
-#if UNITY_EDITOR
-    void Awake() => PrefabManager.updatePrefabManager();
-#endif
 }
