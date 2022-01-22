@@ -22,11 +22,16 @@ public class BoundingBoxList : MonoBehaviour
             UpdateMainBound();
     }
 
+	private void LateUpdate()
+	{
+		if (AutoUpdateBounds && boundingBoxes.Count > 0)
+			UpdateMainBound();
+	}
+
 	[ContextMenu("Find all bounds")]
     public void findAllBounds()
     {
         boundingBoxes = new List<BoundingBoxComponent>(GetComponentsInChildren<BoundingBoxComponent>());
-        EditorUtility.SetDirty(gameObject);
     }
 
     public void UpdateMainBound()

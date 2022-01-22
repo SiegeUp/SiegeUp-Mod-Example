@@ -22,4 +22,5 @@ MonoBehaviour:
       malesuada ipsum mattis tristique. Vivamus vel varius nisi. Donec non fringilla
       mauris. Nunc blandit laoreet ipsum ac volutpat.
     Version: 1
-  Decorations: []
+  Decorations:
+  - {fileID: 2527351084644776482, guid: b887859c080fefa4c8995609abf5f2f1, type: 3}
