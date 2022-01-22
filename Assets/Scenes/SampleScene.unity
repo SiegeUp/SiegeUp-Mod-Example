@@ -307,8 +307,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 178181696317255958, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
+      propertyPath: m_Size.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 178181696317255958, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 178181696317255958, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
+      propertyPath: m_Center.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1382838407652713805, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
       propertyPath: passable
@@ -368,15 +376,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3086198164710309990, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3086198164710309990, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.84
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3086198164710309990, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3717911934725059617, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
       propertyPath: populationSlots
@@ -394,10 +402,15 @@ PrefabInstance:
       propertyPath: uniqueId
       value: f45ed532-9cf8-400b-9c7a-e44acd1aa1de
       objectReference: {fileID: 0}
+    - target: {fileID: 7722482034440750619, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 9098259118209169433, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
       propertyPath: prefabId
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5407216313051622818, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
+    - {fileID: 6688088781805206449, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 39a77bc0a64a1b24dbfb198dc0d593fa, type: 3}

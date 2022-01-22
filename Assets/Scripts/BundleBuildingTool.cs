@@ -5,18 +5,22 @@ using System.Collections.Generic;
 #if UNITY_EDITOR
 public class BundleBuildingTool
 {
-    public static readonly Dictionary<BuildTarget, string> SupportedPlatforms = new Dictionary<BuildTarget, string>
+    public static readonly Dictionary<BuildTarget, PlatformShortName> SupportedPlatforms = new Dictionary<BuildTarget, PlatformShortName>
     {
-        {BuildTarget.StandaloneWindows64, "Windows" },
-        {BuildTarget.Android, "Android" },
-        {BuildTarget.StandaloneLinux64, "Linux" },
-        {BuildTarget.StandaloneOSX, "MacOS" },
+        {BuildTarget.StandaloneWindows64, PlatformShortName.Windows },
+        {BuildTarget.Android, PlatformShortName.Android },
+        {BuildTarget.StandaloneLinux64, PlatformShortName.Linux },
+        {BuildTarget.StandaloneOSX, PlatformShortName.MacOS },
     };
 
     public static void BuildAssetBundle(SiegeUpModBase modBase, params BuildTarget[] targetPlatforms)
 	{
         PrefabManager.updatePrefabManager();
-        string modDirectory = FileUtils.GetModFolder(modBase.ModInfo.ModName);
+		if (!SiegeUpModUtils.ValidateMetaInfo(modBase))
+			return;
+		string modDirectory = FileUtils.TryGetModFolder(modBase.ModInfo.ModName);
+        if (modDirectory == null)
+            return;
         Debug.Log("Output directory: " + modDirectory);      
 
         AssetBundleBuild[] map = new AssetBundleBuild[1];
@@ -24,11 +28,10 @@ public class BundleBuildingTool
 
         foreach (var platform in targetPlatforms)
         {
-            map[0].assetBundleName = SupportedPlatforms[platform];
+            map[0].assetBundleName = SupportedPlatforms[platform].ToString();
             BuildAssetBundle(modBase, map, platform, modDirectory);
-            FileUtils.CreateModManifest(modDirectory, modBase.ModInfo);
+            FileUtils.CreateModMetaFile(modDirectory, modBase.ModInfo);
         }
-        FileUtils.ClearUnityFiles(modDirectory);
         AssetDatabase.Refresh();
     }
 

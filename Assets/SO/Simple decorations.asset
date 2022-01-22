@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ModInfo:
     ModName: Simple decorations
-    AuthorName: Community
+    AuthorName: 
     Description: 
     Version: 1
   Decorations:

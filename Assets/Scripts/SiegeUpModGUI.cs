@@ -7,9 +7,9 @@ using System.Linq;
 [CustomEditor(typeof(SiegeUpModBase))]
 public class SiegeUpModGUI : Editor
 {
-	private SiegeUpModBase instance;
+	private SiegeUpModBase targetObject;
 
-	private void OnEnable() => instance = (SiegeUpModBase)target;
+	private void OnEnable() => targetObject = (SiegeUpModBase)target;
 
 	public override void OnInspectorGUI()
 	{
@@ -17,18 +17,16 @@ public class SiegeUpModGUI : Editor
 		GUILayout.BeginVertical("box");
 		GUILayout.BeginHorizontal();
 		GUILayout.Label("Build for platform:");
-#if UNITY_EDITOR_WIN
 		if (GUILayout.Button("Open mod folder"))
-			System.Diagnostics.Process.Start("explorer.exe", FileUtils.GetModFolder(instance.ModInfo.ModName));
-#endif
+			System.Diagnostics.Process.Start("explorer.exe", FileUtils.TryGetModFolder(targetObject.ModInfo.ModName));
 		GUILayout.EndHorizontal();
 
 		GUILayout.BeginHorizontal();
 		int buttonIndex = 0;
 		foreach (var platform in BundleBuildingTool.SupportedPlatforms)
 		{
-			if (GUILayout.Button(platform.Value))
-				BundleBuildingTool.BuildAssetBundle(instance, platform.Key);
+			if (GUILayout.Button(platform.Value.ToString()))
+				BundleBuildingTool.BuildAssetBundle(targetObject, platform.Key);
 			buttonIndex++;
 			if (buttonIndex % 3 == 0)
 			{
@@ -39,7 +37,7 @@ public class SiegeUpModGUI : Editor
 		GUILayout.EndHorizontal();
 
 		if (GUILayout.Button("All", GUILayout.Height(25)))
-			BundleBuildingTool.BuildAssetBundle(instance, BundleBuildingTool.SupportedPlatforms.Keys.ToArray());
+			BundleBuildingTool.BuildAssetBundle(targetObject, BundleBuildingTool.SupportedPlatforms.Keys.ToArray());
 
 		GUILayout.EndVertical();
 		GUILayout.Space(5);
