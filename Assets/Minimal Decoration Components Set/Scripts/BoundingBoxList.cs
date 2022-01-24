@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 [ExecuteInEditMode]
 public class BoundingBoxList : MonoBehaviour
 {
-    [SerializeField] private bool AutoUpdateBounds = true;
     public List<BoundingBoxComponent> boundingBoxes;
+#if UNITY_EDITOR
+    [SerializeField] private bool AutoUpdateBounds = true;
+#endif
 
     public BoundingBoxComponent getMainBound()
     {

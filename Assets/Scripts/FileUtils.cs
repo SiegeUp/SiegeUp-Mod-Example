@@ -33,7 +33,15 @@ public class FileUtils
         set => modsOutputFolder = value;
     }
 
-    private static string modsOutputFolder;
+	private static string modsOutputFolder;
+
+    public static void OpenExplorer(string path)
+    {
+        if (!string.IsNullOrEmpty(path) && Directory.Exists(path))
+            System.Diagnostics.Process.Start("explorer.exe", path);
+        else
+            Debug.LogWarning($"Unable to open {path}");
+    }
 
     public static void CheckOrCreateDirectory(string path)
     {

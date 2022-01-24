@@ -9,10 +9,8 @@ public class BoundingBoxUtils
             return new Bounds();
         Bounds commonBounds = renderers[0].bounds;
         foreach (var renderer in renderers)
-        {
-            commonBounds.Encapsulate(renderer.bounds.center + renderer.bounds.size / 2);
-            commonBounds.Encapsulate(renderer.bounds.center - renderer.bounds.size / 2);
-        }
+            commonBounds.Encapsulate(renderer.bounds);
+        commonBounds.size.Set(commonBounds.size.x, 0, commonBounds.size.z);
         return commonBounds;
     }
 }

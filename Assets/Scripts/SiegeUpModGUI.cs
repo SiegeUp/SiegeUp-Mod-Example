@@ -18,7 +18,7 @@ public class SiegeUpModGUI : Editor
 		GUILayout.BeginHorizontal();
 		GUILayout.Label("Build for platform:");
 		if (GUILayout.Button("Open mod folder"))
-			System.Diagnostics.Process.Start("explorer.exe", FileUtils.TryGetModFolder(targetObject.ModInfo.ModName));
+			FileUtils.OpenExplorer(FileUtils.TryGetModFolder(targetObject.ModInfo.ModName));
 		GUILayout.EndHorizontal();
 
 		GUILayout.BeginHorizontal();
