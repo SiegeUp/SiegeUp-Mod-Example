@@ -3,13 +3,12 @@
 #if UNITY_EDITOR
 class EditorUtils
 {
-#nullable enable
-	public static string? GetFolderDialogue(string message)
+	public static string ShowOpenFolderDialogue(string message)
 	{
 		if (!EditorUtility.DisplayDialog("", message, "Ok", "Cancel"))
-			return null;
-		return EditorUtility.SaveFolderPanel("Select a folder", "", null);
+			return "";
+		string path = EditorUtility.SaveFolderPanel("Select a folder", "", "");
+		return FileUtils.FixPathSeparator(path);
 	}
-#nullable disable
 }
 #endif

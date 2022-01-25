@@ -4,37 +4,6 @@ using UnityEngine;
 
 public class FileUtils
 {
-    public static string ModsOutputFolder
-    { 
-        get
-        {
-            if (string.IsNullOrEmpty(modsOutputFolder))
-            {
-                modsOutputFolder = Path.Combine(
-                Environment.GetFolderPath(
-                    Environment.SpecialFolder.ApplicationData),
-                        "..",
-                        "LocalLow",
-                        "Zdorovtsov",
-                        "SiegeUp!",
-                        "mods");
-            }
-
-            if (!Directory.Exists(modsOutputFolder))
-            {
-#if UNITY_EDITOR
-                modsOutputFolder = EditorUtils.GetFolderDialogue("Game folder not found. Please select output folder for mods");
-#else
-                return null;
-#endif
-            }
-            return modsOutputFolder;
-        }
-        set => modsOutputFolder = value;
-    }
-
-	private static string modsOutputFolder;
-
     public static void OpenExplorer(string path)
     {
         if (!string.IsNullOrEmpty(path) && Directory.Exists(path))
@@ -43,7 +12,14 @@ public class FileUtils
             Debug.LogWarning($"Unable to open {path}");
     }
 
-    public static void CheckOrCreateDirectory(string path)
+	public static string FixPathSeparator(string path)
+	{
+        if (path.Contains(Path.AltDirectorySeparatorChar.ToString()))
+            return path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+        return path;
+	}
+
+	public static void CheckOrCreateDirectory(string path)
     {
         if (!Directory.Exists(path))
             Directory.CreateDirectory(path);
@@ -51,9 +27,9 @@ public class FileUtils
 
     public static string TryGetModFolder(string modName)
 	{
-        if (ModsOutputFolder == null)
+        if (string.IsNullOrEmpty(BuildingConfig.Instance.ModsFolder))
             return null;
-        string path = Path.Combine(modsOutputFolder, modName);
+        string path = Path.Combine(BuildingConfig.Instance.ModsFolder, modName);
         CheckOrCreateDirectory(path);
         return path;
 	}
