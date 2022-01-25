@@ -12,7 +12,6 @@ namespace SiegeUp.ModdingPlugin
             Bounds commonBounds = renderers[0].bounds;
             foreach (var renderer in renderers)
                 commonBounds.Encapsulate(renderer.bounds);
-            commonBounds.size.Set(commonBounds.size.x, 0, commonBounds.size.z);
             return commonBounds;
         }
     }

@@ -49,8 +49,8 @@ namespace SiegeUp.ModdingPlugin
             var bounds = BoundingBoxUtils.GetCommonBounds(gameObject);
             boxCollider.transform.localPosition = Vector3.zero;
             boxCollider.transform.localScale = Vector3.one;
-            boxCollider.size = bounds.size;
-            boxCollider.center = bounds.center - boxCollider.transform.position;
+            boxCollider.size.Set(bounds.size.x, 0, bounds.size.z);
+            boxCollider.center.Set(bounds.center.x - boxCollider.transform.position.x, 0, bounds.center.z - boxCollider.transform.position.z);
         }
 #endif
     }
