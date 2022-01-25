@@ -3,24 +3,27 @@
 using UnityEditor;
 #endif
 
-public class PrefabManager : ScriptableObject
+namespace SiegeUp.ModdingPlugin
 {
-#if UNITY_EDITOR
-    public static void updatePrefabManager()
+    public class PrefabManager : ScriptableObject
     {
-        Debug.Log("Update prefab manager");
-        var prefabRefs = Resources.FindObjectsOfTypeAll<PrefabRef>();
-        foreach (var prefabRef in prefabRefs)
+#if UNITY_EDITOR
+        public static void updatePrefabManager()
         {
-            if (AssetDatabase.Contains(prefabRef.gameObject) && !AssetDatabase.IsSubAsset(prefabRef.gameObject) && prefabRef.transform.parent == null && !prefabRef.ignore)
+            Debug.Log("Update prefab manager");
+            var prefabRefs = Resources.FindObjectsOfTypeAll<PrefabRef>();
+            foreach (var prefabRef in prefabRefs)
             {
-                var newId = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(prefabRef.gameObject));
-                if (prefabRef.prefabId != newId)
+                if (AssetDatabase.Contains(prefabRef.gameObject) && !AssetDatabase.IsSubAsset(prefabRef.gameObject) && prefabRef.transform.parent == null && !prefabRef.ignore)
                 {
-                    prefabRef.prefabId = newId;
+                    var newId = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(prefabRef.gameObject));
+                    if (prefabRef.prefabId != newId)
+                    {
+                        prefabRef.prefabId = newId;
+                    }
                 }
             }
         }
-    }
 #endif
+    }
 }

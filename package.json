@@ -1,0 +1,8 @@
+{
+  "name": "com.siegeup.moddingplugin",
+  "version": "1.0.0",
+  "displayName": "SiegeUp modding plugin",
+  "description": "This package provides basic tools and instruments for creating SiegeUp mods.",
+  "unity": "2020.3",
+  "license": "MIT"
+}

@@ -1,8 +1,11 @@
-﻿public enum PlatformShortName
+﻿namespace SiegeUp.ModdingPlugin
 {
-	Windows,
-	Linux,
-	Android,
-	MacOS,
-	IOS
+	public enum PlatformShortName
+	{
+		Windows,
+		Linux,
+		Android,
+		MacOS,
+		IOS
+	}
 }

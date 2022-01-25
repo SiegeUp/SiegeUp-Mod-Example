@@ -1,48 +1,50 @@
-#if UNITY_EDITOR
-
 using UnityEditor;
 using UnityEngine;
 using System.Linq;
 
-[CustomEditor(typeof(SiegeUpModBase))]
-public class SiegeUpModGUI : Editor
+#if UNITY_EDITOR
+namespace SiegeUp.ModdingPlugin
 {
-	private SiegeUpModBase targetObject;
-
-	private void OnEnable() => targetObject = (SiegeUpModBase)target;
-
-	public override void OnInspectorGUI()
+	[CustomEditor(typeof(SiegeUpModBase))]
+	public class SiegeUpModGUI : Editor
 	{
-		GUILayout.Space(5);
-		GUILayout.BeginVertical("box");
-		GUILayout.BeginHorizontal();
-		GUILayout.Label("Build for platform:");
-		if (GUILayout.Button("Open mod folder"))
-			FileUtils.OpenExplorer(FileUtils.TryGetModFolder(targetObject.ModInfo.ModName));
-		GUILayout.EndHorizontal();
+		private SiegeUpModBase targetObject;
 
-		GUILayout.BeginHorizontal();
-		int buttonIndex = 0;
-		foreach (var platform in BundleBuildingTool.SupportedPlatforms)
+		private void OnEnable() => targetObject = (SiegeUpModBase)target;
+
+		public override void OnInspectorGUI()
 		{
-			if (GUILayout.Button(platform.Value.ToString()))
-				BundleBuildingTool.BuildAssetBundle(targetObject, platform.Key);
-			buttonIndex++;
-			if (buttonIndex % 3 == 0)
+			GUILayout.Space(5);
+			GUILayout.BeginVertical("box");
+			GUILayout.BeginHorizontal();
+			GUILayout.Label("Build for platform:");
+			if (GUILayout.Button("Open mod folder"))
+				FileUtils.OpenExplorer(FileUtils.TryGetModFolder(targetObject.ModInfo.ModName));
+			GUILayout.EndHorizontal();
+
+			GUILayout.BeginHorizontal();
+			int buttonIndex = 0;
+			foreach (var platform in BundleBuildingTool.SupportedPlatforms)
 			{
-				GUILayout.EndHorizontal();
-				GUILayout.BeginHorizontal();
+				if (GUILayout.Button(platform.Value.ToString()))
+					BundleBuildingTool.BuildAssetBundle(targetObject, platform.Key);
+				buttonIndex++;
+				if (buttonIndex % 3 == 0)
+				{
+					GUILayout.EndHorizontal();
+					GUILayout.BeginHorizontal();
+				}
 			}
+			GUILayout.EndHorizontal();
+
+			if (GUILayout.Button("All", GUILayout.Height(25)))
+				BundleBuildingTool.BuildAssetBundle(targetObject, BundleBuildingTool.SupportedPlatforms.Keys.ToArray());
+
+			GUILayout.EndVertical();
+			GUILayout.Space(5);
+
+			base.OnInspectorGUI();
 		}
-		GUILayout.EndHorizontal();
-
-		if (GUILayout.Button("All", GUILayout.Height(25)))
-			BundleBuildingTool.BuildAssetBundle(targetObject, BundleBuildingTool.SupportedPlatforms.Keys.ToArray());
-
-		GUILayout.EndVertical();
-		GUILayout.Space(5);
-
-		base.OnInspectorGUI();
 	}
 }
 #endif

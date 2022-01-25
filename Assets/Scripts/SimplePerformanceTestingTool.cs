@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+
 class SimplePerformanceTestingTool : MonoBehaviour
 {
 	public List<double> results = new List<double>() { 0, 0 };
@@ -35,6 +33,7 @@ class SimplePerformanceTestingTool : MonoBehaviour
 	}
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(SimplePerformanceTestingTool))]
 class SimplePerformanceTestingToolGUI : Editor
 {
@@ -47,3 +46,4 @@ class SimplePerformanceTestingToolGUI : Editor
 		}
 	}
 }
+#endif

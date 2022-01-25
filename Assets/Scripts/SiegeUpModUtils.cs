@@ -1,18 +1,22 @@
 ﻿using UnityEditor;
 
-class SiegeUpModUtils
-{
 #if UNITY_EDITOR
-	public static bool ValidateMetaInfo(SiegeUpModBase mod)
+namespace SiegeUp.ModdingPlugin
+{
+	class SiegeUpModUtils
 	{
-		if (string.IsNullOrEmpty(mod.ModInfo.ModName))
-			mod.ModInfo.ModName = mod.name;
-		if (!FileUtils.IsValidFolderName(mod.ModInfo.ModName))
+		public static bool ValidateMetaInfo(SiegeUpModBase mod)
 		{
-			EditorUtility.DisplayDialog("Error", "Invalid mod name.\nMod name should not contain the following chars:\n" + string.Join(" ", System.IO.Path.GetInvalidPathChars()), "Ok");
-			return false;
+			if (string.IsNullOrEmpty(mod.ModInfo.ModName))
+				mod.ModInfo.ModName = mod.name;
+			if (!FileUtils.IsValidFolderName(mod.ModInfo.ModName))
+			{
+				EditorUtility.DisplayDialog("Error", "Invalid mod name.\nMod name should not contain the following chars:\n" + string.Join(" ", System.IO.Path.GetInvalidPathChars()), "Ok");
+				return false;
+			}
+			return true;
 		}
-		return true;
 	}
-#endif
+
 }
+#endif

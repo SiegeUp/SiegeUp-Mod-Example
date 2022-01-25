@@ -2,20 +2,23 @@
 using UnityEngine;
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(BoundingBoxList))]
-public class BoundingBoxListGUI : Editor
+namespace SiegeUp.ModdingPlugin
 {
-    BoundingBoxList targetObject;
-
-    private void OnEnable() => targetObject = (BoundingBoxList)target;
-
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(BoundingBoxList))]
+    public class BoundingBoxListGUI : Editor
     {
-        base.OnInspectorGUI();
-        if (GUILayout.Button("Generate/update common boundingBox"))
+        BoundingBoxList targetObject;
+
+        private void OnEnable() => targetObject = (BoundingBoxList)target;
+
+        public override void OnInspectorGUI()
         {
-            targetObject.UpdateMainBound();
-            EditorUtility.SetDirty(targetObject);
+            base.OnInspectorGUI();
+            if (GUILayout.Button("Generate/update common boundingBox"))
+            {
+                targetObject.UpdateMainBound();
+                EditorUtility.SetDirty(targetObject);
+            }
         }
     }
 }

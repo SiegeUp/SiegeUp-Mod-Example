@@ -1,14 +1,17 @@
 ﻿using UnityEditor;
 
 #if UNITY_EDITOR
-class EditorUtils
+namespace SiegeUp.ModdingPlugin
 {
-	public static string ShowOpenFolderDialogue(string message)
+	class EditorUtils
 	{
-		if (!EditorUtility.DisplayDialog("", message, "Ok", "Cancel"))
-			return "";
-		string path = EditorUtility.SaveFolderPanel("Select a folder", "", "");
-		return FileUtils.FixPathSeparator(path);
+		public static string ShowOpenFolderDialogue(string message)
+		{
+			if (!EditorUtility.DisplayDialog("", message, "Ok", "Cancel"))
+				return "";
+			string path = EditorUtility.SaveFolderPanel("Select a folder", "", "");
+			return FileUtils.FixPathSeparator(path);
+		}
 	}
 }
 #endif
