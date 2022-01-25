@@ -26,7 +26,7 @@ namespace SiegeUp.ModdingPlugin
 #if UNITY_EDITOR
                     modsFolder = EditorUtils.ShowOpenFolderDialogue("Game folder not found. Please select output folder for mods");
 #else
-                return "";
+                    return "";
 #endif
                 }
                 return modsFolder;
@@ -35,6 +35,7 @@ namespace SiegeUp.ModdingPlugin
         }
 
         [SerializeField] private string modsFolder;
+        private const string ConfigFolderName = "Config";
 
         private void OnEnable() => Instance = this;
 
@@ -42,9 +43,21 @@ namespace SiegeUp.ModdingPlugin
         [InitializeOnLoadMethod]
         private static void FindInstance()
         {
-            string path = AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets($"Default t:{nameof(BuildingConfig)}")[0]);
-            Instance = AssetDatabase.LoadAssetAtPath<BuildingConfig>(path);
-            Debug.Assert(Instance != null, "Instance was found, path: " + path);
+            string[] assets = AssetDatabase.FindAssets($"Default t:{nameof(BuildingConfig)}");
+            if (assets.Length > 0)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(assets[0]);
+                Instance = AssetDatabase.LoadAssetAtPath<BuildingConfig>(path);
+            }
+			else
+			{
+                BuildingConfig asset = CreateInstance<BuildingConfig>();
+                if (!AssetDatabase.IsValidFolder($"Assets/{ConfigFolderName}"))
+                    AssetDatabase.CreateFolder("Assets", ConfigFolderName);
+                AssetDatabase.CreateAsset(asset, $"Assets/{ConfigFolderName}/Default config.asset");
+                AssetDatabase.SaveAssets();
+                Instance = asset;
+			}
         }
 #endif
 
