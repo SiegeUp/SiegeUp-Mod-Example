@@ -18,9 +18,7 @@ namespace SiegeUp.ModdingPlugin
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("Build for platform:");
 			if (GUILayout.Button("Open mod folder") && ValidateModsFolder())
-			{
 				FileUtils.OpenExplorer(FileUtils.TryGetModFolder(targetObject.ModInfo.ModName));
-			}
 			GUILayout.EndHorizontal();
 
 			GUILayout.BeginHorizontal();
@@ -28,9 +26,7 @@ namespace SiegeUp.ModdingPlugin
 			foreach (var platform in BundleBuildingTool.SupportedPlatforms)
 			{
 				if (GUILayout.Button(platform.Value.ToString()) && ValidateModsFolder())
-				{
 					BundleBuildingTool.BuildAssetBundle(targetObject, platform.Key);
-				}
 				buttonIndex++;
 				if (buttonIndex % 3 == 0)
 				{
@@ -40,10 +36,8 @@ namespace SiegeUp.ModdingPlugin
 			}
 			GUILayout.EndHorizontal();
 
-			if (GUILayout.Button("All", GUILayout.Height(25)))
-			{
+			if (GUILayout.Button("All", GUILayout.Height(25)) && ValidateModsFolder())
 				BundleBuildingTool.BuildAssetBundle(targetObject, BundleBuildingTool.SupportedPlatforms.Keys.ToArray());
-			}
 
 			GUILayout.EndVertical();
 			GUILayout.Space(5);
