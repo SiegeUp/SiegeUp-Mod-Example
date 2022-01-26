@@ -90,8 +90,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8232827cac6cf9842832a51587cd5a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boundingBoxes:
+  - {fileID: 0}
   AutoUpdateBounds: 1
-  boundingBoxes: []
 --- !u!114 &7327634147041871743
 MonoBehaviour:
   m_ObjectHideFlags: 0
