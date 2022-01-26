@@ -2,7 +2,6 @@ using UnityEditor;
 using UnityEngine;
 using System.Linq;
 
-#if UNITY_EDITOR
 namespace SiegeUp.ModdingPlugin
 {
 	[CustomEditor(typeof(SiegeUpModBase))]
@@ -18,16 +17,20 @@ namespace SiegeUp.ModdingPlugin
 			GUILayout.BeginVertical("box");
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("Build for platform:");
-			if (GUILayout.Button("Open mod folder"))
+			if (GUILayout.Button("Open mod folder") && ValidateModsFolder())
+			{
 				FileUtils.OpenExplorer(FileUtils.TryGetModFolder(targetObject.ModInfo.ModName));
+			}
 			GUILayout.EndHorizontal();
 
 			GUILayout.BeginHorizontal();
 			int buttonIndex = 0;
 			foreach (var platform in BundleBuildingTool.SupportedPlatforms)
 			{
-				if (GUILayout.Button(platform.Value.ToString()))
+				if (GUILayout.Button(platform.Value.ToString()) && ValidateModsFolder())
+				{
 					BundleBuildingTool.BuildAssetBundle(targetObject, platform.Key);
+				}
 				buttonIndex++;
 				if (buttonIndex % 3 == 0)
 				{
@@ -38,13 +41,23 @@ namespace SiegeUp.ModdingPlugin
 			GUILayout.EndHorizontal();
 
 			if (GUILayout.Button("All", GUILayout.Height(25)))
+			{
 				BundleBuildingTool.BuildAssetBundle(targetObject, BundleBuildingTool.SupportedPlatforms.Keys.ToArray());
+			}
 
 			GUILayout.EndVertical();
 			GUILayout.Space(5);
 
 			base.OnInspectorGUI();
 		}
+
+		private bool ValidateModsFolder()
+		{
+			if (BuildingConfig.Instance.IsValidModsFolder)
+				return true;
+			if (EditorUtils.ShowOpenFolderDialogue("Game folder not found. Please select output folder for mods", out string newModsFolder))
+				BuildingConfig.Instance.ModsFolder = newModsFolder;
+			return BuildingConfig.Instance.IsValidModsFolder;
+		}
 	}
 }
-#endif

@@ -4,21 +4,21 @@ using System.Collections.Generic;
 
 namespace SiegeUp.ModdingPlugin
 {
-#if UNITY_EDITOR
     public class BundleBuildingTool
     {
         public static readonly Dictionary<BuildTarget, PlatformShortName> SupportedPlatforms = new Dictionary<BuildTarget, PlatformShortName>
         {
-            {BuildTarget.StandaloneWindows64, PlatformShortName.Windows },
+            {BuildTarget.StandaloneWindows, PlatformShortName.Windows },
             {BuildTarget.Android, PlatformShortName.Android },
             {BuildTarget.StandaloneLinux64, PlatformShortName.Linux },
             {BuildTarget.StandaloneOSX, PlatformShortName.MacOS },
+            {BuildTarget.iOS, PlatformShortName.IOS },
         };
 
         public static void BuildAssetBundle(SiegeUpModBase modBase, params BuildTarget[] targetPlatforms)
         {
             PrefabManager.updatePrefabManager();
-            if (!SiegeUpModUtils.ValidateMetaInfo(modBase))
+            if (!modBase.ValidateMetaInfo())
                 return;
             string modDirectory = FileUtils.TryGetModFolder(modBase.ModInfo.ModName);
             if (modDirectory == null)
@@ -41,8 +41,7 @@ namespace SiegeUp.ModdingPlugin
         {
             var manifest = BuildPipeline.BuildAssetBundles(outputDir, map, BuildAssetBundleOptions.StrictMode, targetPlatform);
             if (manifest != null)
-                Debug.Log($"Mod {modBase.ModInfo.ModName} for {targetPlatform} was builded successfully!");
+                Debug.Log($"Mod \"{modBase.ModInfo.ModName}\" for \"{SupportedPlatforms[targetPlatform]}\" platform was builded successfully!");
         }
     }
-#endif
 }

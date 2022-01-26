@@ -8,9 +8,14 @@ using UnityEditor;
 namespace SiegeUp.ModdingPlugin
 {
     [ExecuteInEditMode]
-    class BuildingConfig : ScriptableObject
+    public class BuildingConfig : ScriptableObject
     {
         public static BuildingConfig Instance;
+
+        public bool IsValidModsFolder
+        {
+            get => !string.IsNullOrEmpty(ModsFolder);
+        }
 
         public string ModsFolder
         {
@@ -23,18 +28,15 @@ namespace SiegeUp.ModdingPlugin
 
                 if (!Directory.Exists(modsFolder))
                 {
-#if UNITY_EDITOR
-                    modsFolder = EditorUtils.ShowOpenFolderDialogue("Game folder not found. Please select output folder for mods");
-#else
-                    return "";
-#endif
+                    modsFolder = "";
                 }
                 return modsFolder;
             }
             set => modsFolder = value;
         }
 
-        [SerializeField] private string modsFolder;
+		[SerializeField] 
+        private string modsFolder;
         private const string ConfigFolderName = "Config";
 
         private void OnEnable() => Instance = this;
@@ -61,15 +63,24 @@ namespace SiegeUp.ModdingPlugin
         }
 #endif
 
+        public static string GetDefaultGameFolder()
+		{
+            return Path.Combine(
+                   Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                   "..",
+                   "LocalLow",
+                   "Zdorovtsov",
+                   "SiegeUp!");
+        }
+
         public static string GetDefaultModsFolder()
         {
-            return Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                    "..",
-                    "LocalLow",
-                    "Zdorovtsov",
-                    "SiegeUp!",
-                    "mods");
+            string gameFolder = GetDefaultGameFolder();
+            if (!Directory.Exists(gameFolder))
+                return "";
+            string modsFolder = Path.Combine(gameFolder, "mods");
+            FileUtils.CheckOrCreateDirectory(modsFolder);
+            return modsFolder;
         }
     }
 }

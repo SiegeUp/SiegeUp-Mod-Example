@@ -1,11 +1,5 @@
 {
   "dependencies": {
-    "com.siegeup.moddingplugin": {
-      "version": "file:SiegeUp modding plugin",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
-    },
     "com.unity.collab-proxy": {
       "version": "1.15.9",
       "depth": 0,

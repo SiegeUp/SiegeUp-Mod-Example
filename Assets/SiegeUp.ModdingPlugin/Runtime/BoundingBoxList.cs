@@ -7,6 +7,7 @@ namespace SiegeUp.ModdingPlugin
     public class BoundingBoxList : MonoBehaviour
     {
         public List<BoundingBoxComponent> boundingBoxes;
+
 #if UNITY_EDITOR
         [SerializeField] private bool AutoUpdateBounds = true;
 #endif

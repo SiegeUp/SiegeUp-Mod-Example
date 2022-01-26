@@ -1,7 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-#if UNITY_EDITOR
 namespace SiegeUp.ModdingPlugin
 {
     [CustomEditor(typeof(BoundingBoxList))]
@@ -22,4 +21,3 @@ namespace SiegeUp.ModdingPlugin
         }
     }
 }
-#endif

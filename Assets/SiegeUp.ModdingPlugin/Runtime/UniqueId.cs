@@ -2,7 +2,6 @@
 
 namespace SiegeUp.ModdingPlugin
 {
-	[ExecuteInEditMode]
 	public class UniqueId : MonoBehaviour
 	{
 		[HideInInspector]
