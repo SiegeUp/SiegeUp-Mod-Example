@@ -29,10 +29,11 @@ namespace SiegeUp.ModdingPlugin
 
         public static string TryGetModFolder(string modName)
         {
-            if (string.IsNullOrEmpty(BuildingConfig.Instance.ModsFolder))
+            if (!BundlesBuildingConfig.Instance.IsValidModsFolder)
                 return null;
-            string path = Path.Combine(BuildingConfig.Instance.ModsFolder, modName);
+            string path = Path.Combine(BundlesBuildingConfig.Instance.ModsFolder, modName);
             CheckOrCreateDirectory(path);
+            Debug.Log(path);
             return path;
         }
 

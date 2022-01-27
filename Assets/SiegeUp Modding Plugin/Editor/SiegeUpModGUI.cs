@@ -47,11 +47,11 @@ namespace SiegeUp.ModdingPlugin
 
 		private bool ValidateModsFolder()
 		{
-			if (BuildingConfig.Instance.IsValidModsFolder)
+			if (BundlesBuildingConfig.Instance.IsValidModsFolder)
 				return true;
 			if (EditorUtils.ShowOpenFolderDialogue("Game folder not found. Please select output folder for mods", out string newModsFolder))
-				BuildingConfig.Instance.ModsFolder = newModsFolder;
-			return BuildingConfig.Instance.IsValidModsFolder;
+				BundlesBuildingConfig.Instance.ModsFolder = newModsFolder;
+			return BundlesBuildingConfig.Instance.IsValidModsFolder;
 		}
 	}
 }

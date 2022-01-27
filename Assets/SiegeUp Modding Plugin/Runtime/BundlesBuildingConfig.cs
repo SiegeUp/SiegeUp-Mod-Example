@@ -8,9 +8,9 @@ using UnityEditor;
 namespace SiegeUp.ModdingPlugin
 {
     [ExecuteInEditMode]
-    public class BuildingConfig : ScriptableObject
+    public class BundlesBuildingConfig : ScriptableObject
     {
-        public static BuildingConfig Instance;
+        public static BundlesBuildingConfig Instance;
 
         public bool IsValidModsFolder
         {
@@ -45,15 +45,15 @@ namespace SiegeUp.ModdingPlugin
         [InitializeOnLoadMethod]
         private static void FindInstance()
         {
-            string[] assets = AssetDatabase.FindAssets($"Default t:{nameof(BuildingConfig)}");
+            string[] assets = AssetDatabase.FindAssets($"Default t:{nameof(BundlesBuildingConfig)}");
             if (assets.Length > 0)
             {
                 string path = AssetDatabase.GUIDToAssetPath(assets[0]);
-                Instance = AssetDatabase.LoadAssetAtPath<BuildingConfig>(path);
+                Instance = AssetDatabase.LoadAssetAtPath<BundlesBuildingConfig>(path);
             }
 			else
 			{
-                BuildingConfig asset = CreateInstance<BuildingConfig>();
+                BundlesBuildingConfig asset = CreateInstance<BundlesBuildingConfig>();
                 if (!AssetDatabase.IsValidFolder($"Assets/{ConfigFolderName}"))
                     AssetDatabase.CreateFolder("Assets", ConfigFolderName);
                 AssetDatabase.CreateAsset(asset, $"Assets/{ConfigFolderName}/Default config.asset");
