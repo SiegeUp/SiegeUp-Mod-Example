@@ -299,7 +299,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1410002560
+--- !u!1 &1852324492
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -307,39 +307,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1410002562}
-  - component: {fileID: 1410002561}
+  - component: {fileID: 1852324494}
+  - component: {fileID: 1852324493}
   m_Layer: 0
-  m_Name: Performance tester
+  m_Name: BundleExplorer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1410002561
+--- !u!114 &1852324493
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1410002560}
+  m_GameObject: {fileID: 1852324492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 289bc61b458a8aa4597ebfd735da1059, type: 3}
+  m_Script: {fileID: 11500000, guid: a46efe763b7e1884cb02d83d348703b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  results:
-  - 31.509600000000002
-  - 940.7718000000001
---- !u!4 &1410002562
+  _spawnedObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _loadedMod: {fileID: 1050871760968218744, guid: 00000000000000000000000000000000, type: 0}
+--- !u!4 &1852324494
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1410002560}
+  m_GameObject: {fileID: 1852324492}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.2589226, y: 3.384313, z: 21.064114}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

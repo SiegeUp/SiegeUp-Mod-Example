@@ -1,10 +1,9 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using UnityEngine;
 
 namespace SiegeUp.ModdingPlugin
 {
-    public class FileUtils
+	public class FileUtils
     {
         public static void OpenExplorer(string path)
         {
@@ -33,7 +32,6 @@ namespace SiegeUp.ModdingPlugin
                 return null;
             string path = Path.Combine(BundlesBuildingConfig.Instance.ModsFolder, modName);
             CheckOrCreateDirectory(path);
-            Debug.Log(path);
             return path;
         }
 

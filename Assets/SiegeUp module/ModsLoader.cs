@@ -13,7 +13,7 @@ class ModsLoader
 		List<SiegeUpModBase> mods = new List<SiegeUpModBase>();
 
 		string modsPath = Path.Combine(Application.persistentDataPath, ModsFolderName);
-		string platformName = GetCurrentPlatformName();
+		string platformName = GetCurrentPlatformName().ToLower();
 		if (platformName == null)
 			return mods;
 		var modsFolders = Directory.GetDirectories(modsPath);
@@ -40,14 +40,23 @@ class ModsLoader
 
 	private string GetCurrentPlatformName()
 	{
-		return Application.platform switch
+		switch (Application.platform)
 		{
-			RuntimePlatform.WindowsPlayer | RuntimePlatform.WindowsEditor => PlatformShortName.Windows.ToString(),
-			RuntimePlatform.Android => PlatformShortName.Android.ToString(),
-			RuntimePlatform.LinuxPlayer | RuntimePlatform.LinuxEditor => PlatformShortName.Linux.ToString(),
-			RuntimePlatform.OSXPlayer | RuntimePlatform.OSXEditor => PlatformShortName.MacOS.ToString(),
-			RuntimePlatform.IPhonePlayer => PlatformShortName.IOS.ToString(),
-			_ => null
+			case RuntimePlatform.WindowsPlayer:
+			case RuntimePlatform.WindowsEditor:
+				return PlatformShortName.Windows.ToString();
+			case RuntimePlatform.Android:
+				return PlatformShortName.Android.ToString();
+			case RuntimePlatform.LinuxPlayer:
+			case RuntimePlatform.LinuxEditor:
+				return PlatformShortName.Linux.ToString();
+			case RuntimePlatform.OSXPlayer:
+			case RuntimePlatform.OSXEditor:
+				return PlatformShortName.MacOS.ToString();
+			case RuntimePlatform.IPhonePlayer:
+				return PlatformShortName.IOS.ToString();
+			default:
+				return null;
 		};
 	}
 }

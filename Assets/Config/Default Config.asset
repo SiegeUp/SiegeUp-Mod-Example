@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4c04196a017d7942930a0db1dbff193, type: 3}
   m_Name: Default config
   m_EditorClassIdentifier: 
-  modsFolder: "C:\\Users\\\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C\\AppData\\Roaming\\..\\LocalLow\\Zdorovtsov\\SiegeUp!\\mods"
+  modsFolder: 

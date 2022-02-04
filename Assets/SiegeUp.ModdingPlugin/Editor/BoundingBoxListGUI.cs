@@ -6,17 +6,17 @@ namespace SiegeUp.ModdingPlugin
     [CustomEditor(typeof(BoundingBoxList))]
     public class BoundingBoxListGUI : Editor
     {
-        BoundingBoxList targetObject;
+        private BoundingBoxList _targetObject;
 
-        private void OnEnable() => targetObject = (BoundingBoxList)target;
+        private void OnEnable() => _targetObject = (BoundingBoxList)target;
 
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
             if (GUILayout.Button("Generate/update common boundingBox"))
             {
-                targetObject.UpdateMainBound();
-                EditorUtility.SetDirty(targetObject);
+                _targetObject.UpdateMainBound();
+                EditorUtility.SetDirty(_targetObject);
             }
         }
     }
