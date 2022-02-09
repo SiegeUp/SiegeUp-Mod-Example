@@ -35,7 +35,11 @@ class ModsLoader
 			Debug.Log("Failed to load AssetBundle from " + path);
 			return null;
 		}
-		return loadedAssetBundle.LoadAllAssets<SiegeUpModBase>()[0];
+		var bundleAssets = loadedAssetBundle.LoadAllAssets<SiegeUpModBase>();
+		loadedAssetBundle.Unload(false);
+		if (bundleAssets.Length < 1)
+			return null;
+		return bundleAssets[0];
 	}
 
 	private string GetCurrentPlatformName()

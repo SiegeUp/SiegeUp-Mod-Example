@@ -328,12 +328,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a46efe763b7e1884cb02d83d348703b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnedObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _loadedMod: {fileID: 1050871760968218744, guid: 00000000000000000000000000000000, type: 0}
+  _spawnedObjects: []
+  _loadedMod: {fileID: 0}
 --- !u!4 &1852324494
 Transform:
   m_ObjectHideFlags: 0

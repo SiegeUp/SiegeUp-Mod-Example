@@ -15,7 +15,7 @@ public class BundleExplorer : MonoBehaviour
     public void LoadBundle(string path)
 	{
 		if (_loadedMod != null)
-			UnloadBundle();
+			UnloadAllBundles();
 		_loadedMod = _modsLoader.TryLoadBundle(path);
 	}
 
@@ -31,12 +31,18 @@ public class BundleExplorer : MonoBehaviour
 		}
 	}
 
-	private void UnloadBundle()
+	public void UnloadAllBundles()
 	{
 		foreach (var go in _spawnedObjects)
 			DestroyImmediate(go.gameObject);
 		_spawnedObjects.Clear();
 		AssetBundle.UnloadAllAssetBundles(true);
+		_loadedMod = null;
+	}
+
+	private void OnDestroy()
+	{
+		UnloadAllBundles();
 	}
 }
 
@@ -60,6 +66,11 @@ public class BundleExplorerGUI : Editor
 		if (GUILayout.Button("Spawn objects"))
 		{
 			_targetObject.SpawnObjects();
+		}
+
+		if (GUILayout.Button("Unload bundle"))
+		{
+			_targetObject.UnloadAllBundles();
 		}
 	}
 }
