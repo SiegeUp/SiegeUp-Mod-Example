@@ -5,8 +5,8 @@ In order to use:
 2. Download the project from this repository
 
 If you have ready to use mods, put it's folder into `mods` directory, depending on your platform:
-Windows: <User>\AppData\LocalLow\Zdorovtsov\SiegeUp!\mods
-Android: /Android/data/com.abuksigun.rpg_prototype/files
+- Windows: `<User>\AppData\LocalLow\Zdorovtsov\SiegeUp!\mods`
+- Android: `/Android/data/com.abuksigun.rpg_prototype/files`
 
 Alternatively, create your own Unity project and import the plugin by the link below
 
