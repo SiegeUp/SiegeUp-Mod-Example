@@ -37,7 +37,7 @@ namespace SiegeUp.ModdingPlugin
 
 		[SerializeField] 
         private string modsFolder;
-        private const string ConfigFolderName = "Config";
+        private const string ConfigFolderName = "SiegeUp Modding Plugin Config";
 
         private void OnEnable() => Instance = this;
 
@@ -56,7 +56,7 @@ namespace SiegeUp.ModdingPlugin
                 BundlesBuildingConfig asset = CreateInstance<BundlesBuildingConfig>();
                 if (!AssetDatabase.IsValidFolder($"Assets/{ConfigFolderName}"))
                     AssetDatabase.CreateFolder("Assets", ConfigFolderName);
-                AssetDatabase.CreateAsset(asset, $"Assets/{ConfigFolderName}/Default config.asset");
+                AssetDatabase.CreateAsset(asset, $"Assets/{ConfigFolderName}/Default Config.asset");
                 AssetDatabase.SaveAssets();
                 Instance = asset;
 			}
