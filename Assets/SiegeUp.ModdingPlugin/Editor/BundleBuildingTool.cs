@@ -17,7 +17,7 @@ namespace SiegeUp.ModdingPlugin
 
         public static void BuildAssetBundle(SiegeUpModBase modBase, params BuildTarget[] targetPlatforms)
         {
-            PrefabManager.updatePrefabManager();
+            RegeneratePrefabIds(modBase);
             if (!modBase.ValidateMetaInfo())
                 return;
             string modDirectory = FileUtils.TryGetModFolder(modBase.ModInfo.ModName);
@@ -42,6 +42,19 @@ namespace SiegeUp.ModdingPlugin
             var manifest = BuildPipeline.BuildAssetBundles(outputDir, map, BuildAssetBundleOptions.StrictMode, targetPlatform);
             if (manifest != null)
                 Debug.Log($"Mod \"{modBase.ModInfo.ModName}\" for \"{SupportedPlatforms[targetPlatform]}\" platform was builded successfully!");
+        }
+
+        static void RegeneratePrefabIds(SiegeUpModBase modBase)
+        {
+            const string prefabRefName = "PrefabRef";
+            var allObjects = modBase.Decorations;
+            foreach (var obj in allObjects)
+            {
+                var prefabRef = obj.GetComponent(prefabRefName);
+                if (!prefabRef)
+                    throw new UnityException($"Please add {prefabRefName} component in object {obj.name}");
+                prefabRef.GetType().GetMethod("Regenerate").Invoke(prefabRef, default);
+            }
         }
     }
 }

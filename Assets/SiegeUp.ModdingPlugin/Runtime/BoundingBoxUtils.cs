@@ -1,18 +1,16 @@
 using UnityEngine;
 
-namespace SiegeUp.ModdingPlugin
+
+public class BoundingBoxUtils
 {
-    public class BoundingBoxUtils
+    public static Bounds GetCommonBounds(GameObject parent)
     {
-        public static Bounds GetCommonBounds(GameObject parent)
-        {
-            var renderers = parent.GetComponentsInChildren<MeshRenderer>();
-            if (renderers.Length == 0)
-                return new Bounds();
-            Bounds commonBounds = renderers[0].bounds;
-            foreach (var renderer in renderers)
-                commonBounds.Encapsulate(renderer.bounds);
-            return commonBounds;
-        }
+        var renderers = parent.GetComponentsInChildren<MeshRenderer>();
+        if (renderers.Length == 0)
+            return new Bounds();
+        Bounds commonBounds = renderers[0].bounds;
+        foreach (var renderer in renderers)
+            commonBounds.Encapsulate(renderer.bounds);
+        return commonBounds;
     }
 }
