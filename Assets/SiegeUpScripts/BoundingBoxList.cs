@@ -35,6 +35,17 @@ public class BoundingBoxList : MonoBehaviour
         boundingBoxes = new List<BoundingBoxComponent>(GetComponentsInChildren<BoundingBoxComponent>());
     }
 
+    public static Bounds GetCommonBounds(GameObject parent)
+    {
+        var renderers = parent.GetComponentsInChildren<MeshRenderer>();
+        if (renderers.Length == 0)
+            return new Bounds();
+        Bounds commonBounds = renderers[0].bounds;
+        foreach (var renderer in renderers)
+            commonBounds.Encapsulate(renderer.bounds);
+        return commonBounds;
+    }
+
     public void UpdateMainBound()
     {
         BoxCollider boxCollider;
@@ -46,7 +57,7 @@ public class BoundingBoxList : MonoBehaviour
             boundingBoxes.Add(boundingBox.AddComponent<BoundingBoxComponent>());
         }
         boxCollider = boundingBoxes[0].GetComponent<BoxCollider>();
-        var bounds = BoundingBoxUtils.GetCommonBounds(gameObject);
+        var bounds = GetCommonBounds(gameObject);
         boxCollider.transform.localPosition = Vector3.zero;
         boxCollider.transform.localScale = Vector3.one;
         boxCollider.size.Set(bounds.size.x, 0, bounds.size.z);

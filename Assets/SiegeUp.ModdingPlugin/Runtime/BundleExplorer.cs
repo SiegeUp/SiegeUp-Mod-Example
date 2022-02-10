@@ -4,74 +4,77 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class BundleExplorer : MonoBehaviour
+namespace SiegeUp.ModdingPlugin
 {
-	[SerializeField]
-	private List<GameObject> _spawnedObjects = new List<GameObject>();
-	[SerializeField]
-	private SiegeUp.ModdingPlugin.SiegeUpModBase _loadedMod;
-	private ModsLoader _modsLoader = new ModsLoader();
-
-    public void LoadBundle(string path)
+	public class BundleExplorer : MonoBehaviour
 	{
-		if (_loadedMod != null)
-			UnloadAllBundles();
-		_loadedMod = _modsLoader.TryLoadBundle(path);
-	}
+		[SerializeField]
+		private List<GameObject> _spawnedObjects = new List<GameObject>();
+		[SerializeField]
+		private SiegeUp.ModdingPlugin.SiegeUpModBase _loadedMod;
+		private ModsLoader _modsLoader = new ModsLoader();
 
-	public void SpawnObjects()
-	{
-		int x = 0;
-		var objects = _loadedMod.GetAllAssets();
-		foreach(var prefab in objects)
+		public void LoadBundle(string path)
 		{
-			var go = Instantiate(prefab, new Vector3(x, 0, 0), Quaternion.identity, transform);
-			_spawnedObjects.Add(go);
-			x += 2;
+			if (_loadedMod != null)
+				UnloadAllBundles();
+			_loadedMod = _modsLoader.TryLoadBundle(path);
+		}
+
+		public void SpawnObjects()
+		{
+			int x = 0;
+			var objects = _loadedMod.GetAllAssets();
+			foreach (var prefab in objects)
+			{
+				var go = Instantiate(prefab, new Vector3(x, 0, 0), Quaternion.identity, transform);
+				_spawnedObjects.Add(go);
+				x += 2;
+			}
+		}
+
+		public void UnloadAllBundles()
+		{
+			foreach (var go in _spawnedObjects)
+				DestroyImmediate(go.gameObject);
+			_spawnedObjects.Clear();
+			AssetBundle.UnloadAllAssetBundles(true);
+			_loadedMod = null;
+		}
+
+		private void OnDestroy()
+		{
+			UnloadAllBundles();
 		}
 	}
-
-	public void UnloadAllBundles()
-	{
-		foreach (var go in _spawnedObjects)
-			DestroyImmediate(go.gameObject);
-		_spawnedObjects.Clear();
-		AssetBundle.UnloadAllAssetBundles(true);
-		_loadedMod = null;
-	}
-
-	private void OnDestroy()
-	{
-		UnloadAllBundles();
-	}
-}
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(BundleExplorer))]
-public class BundleExplorerGUI : Editor
-{
-	private BundleExplorer _targetObject;
-
-	private void OnEnable() => _targetObject = (BundleExplorer)target;
-
-	public override void OnInspectorGUI()
+	[CustomEditor(typeof(BundleExplorer))]
+	public class BundleExplorerGUI : Editor
 	{
-		base.OnInspectorGUI();
-		if (GUILayout.Button("Load bundle"))
-		{
-			var selectedPath = EditorUtility.OpenFilePanel("Select mod file", "", "");
-			_targetObject.LoadBundle(selectedPath);
-		}
+		private BundleExplorer _targetObject;
 
-		if (GUILayout.Button("Spawn objects"))
-		{
-			_targetObject.SpawnObjects();
-		}
+		private void OnEnable() => _targetObject = (BundleExplorer)target;
 
-		if (GUILayout.Button("Unload bundle"))
+		public override void OnInspectorGUI()
 		{
-			_targetObject.UnloadAllBundles();
+			base.OnInspectorGUI();
+			if (GUILayout.Button("Load bundle"))
+			{
+				var selectedPath = EditorUtility.OpenFilePanel("Select mod file", "", "");
+				_targetObject.LoadBundle(selectedPath);
+			}
+
+			if (GUILayout.Button("Spawn objects"))
+			{
+				_targetObject.SpawnObjects();
+			}
+
+			if (GUILayout.Button("Unload bundle"))
+			{
+				_targetObject.UnloadAllBundles();
+			}
 		}
 	}
-}
 #endif
+}
