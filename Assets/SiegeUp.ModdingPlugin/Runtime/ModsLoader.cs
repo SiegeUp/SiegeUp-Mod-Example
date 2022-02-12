@@ -15,6 +15,7 @@ namespace SiegeUp.ModdingPlugin
 
 			string modsPath = Path.Combine(Application.persistentDataPath, ModsFolderName);
 			string platformName = GetCurrentPlatformName().ToLower();
+			FileUtils.CheckOrCreateDirectory(modsPath);
 			if (platformName == null)
 				return mods;
 			var modsFolders = Directory.GetDirectories(modsPath);
