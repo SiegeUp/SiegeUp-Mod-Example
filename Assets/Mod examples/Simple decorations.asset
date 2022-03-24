@@ -20,17 +20,16 @@ MonoBehaviour:
   ObjectRecords:
   - Prefab: {fileID: 2487539306875641890, guid: 15a50c9cc9eaf8b468f8834daf59344d,
       type: 3}
-    Icon: {fileID: 2800000, guid: 5db72111a5a378b44b7f8e9bffe07790, type: 3}
     Name: {fileID: 11400000, guid: 423daa8d49fbfdc469ede3b2601cf700, type: 2}
+    Icon: {fileID: 2800000, guid: 5db72111a5a378b44b7f8e9bffe07790, type: 3}
   - Prefab: {fileID: 8626775948021231821, guid: fb8959be35de1f644971ad473a15ddc6,
       type: 3}
-    Icon: {fileID: 0}
     Name: {fileID: 0}
+    Icon: {fileID: 0}
   - Prefab: {fileID: 8626775948021231821, guid: c2405dc02bec814498e2fd8f9acf7669,
       type: 3}
-    Icon: {fileID: 0}
     Name: {fileID: 0}
-  - Prefab: {fileID: 6295845552739901603, guid: 3bd262420ad7d164fb190b291096f83e,
-      type: 3}
     Icon: {fileID: 0}
+  - Prefab: {fileID: 0}
     Name: {fileID: 0}
+    Icon: {fileID: 0}
