@@ -24,7 +24,7 @@ namespace SiegeUp.ModdingPlugin
 		public void SpawnObjects()
 		{
 			int x = 0;
-			var objects = _loadedMod.GetAllAssets();
+			var objects = _loadedMod.GetAllObjects();
 			foreach (var prefab in objects)
 			{
 				var go = Instantiate(prefab, new Vector3(x, 0, 0), Quaternion.identity, transform);

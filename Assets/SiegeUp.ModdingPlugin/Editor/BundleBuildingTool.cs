@@ -47,7 +47,7 @@ namespace SiegeUp.ModdingPlugin
         static void RegeneratePrefabIds(SiegeUpModBase modBase)
         {
             const string prefabRefName = "PrefabRef";
-            var allObjects = modBase.Decorations;
+            var allObjects = modBase.GetAllObjects();
             foreach (var obj in allObjects)
             {
                 var prefabRef = obj.GetComponent(prefabRefName);

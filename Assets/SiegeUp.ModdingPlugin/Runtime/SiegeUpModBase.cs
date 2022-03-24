@@ -7,12 +7,21 @@ namespace SiegeUp.ModdingPlugin
 	public class SiegeUpModBase : ScriptableObject
 	{
 		public SiegeUpModMeta ModInfo = new SiegeUpModMeta();
-		public List<GameObject> Decorations = new List<GameObject>();
 
-		public List<GameObject> GetAllAssets()
-		{
-			return new List<GameObject>(Decorations);
-		}
+		[System.Serializable]
+		public class ObjectRecord
+        {
+			public GameObject Prefab;
+			public Translation Name;
+			public Texture2D Icon;
+        }
+
+		public List<ObjectRecord> ObjectRecords = new List<ObjectRecord>();
+
+		public List<GameObject> GetAllObjects()
+        {
+			return ObjectRecords.ConvertAll(i => i.Prefab);
+        }
 
 		public bool ValidateMetaInfo()
 		{
