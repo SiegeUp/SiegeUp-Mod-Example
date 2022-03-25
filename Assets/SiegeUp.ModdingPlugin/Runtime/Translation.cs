@@ -5,7 +5,7 @@ using UnityEditor;
 
 namespace SiegeUp.ModdingPlugin
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = "Translation (Mod)")]
     public class Translation : ScriptableObject
     {
         [TextArea]
