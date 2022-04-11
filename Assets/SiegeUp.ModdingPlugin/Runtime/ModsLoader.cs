@@ -1,27 +1,39 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 namespace SiegeUp.ModdingPlugin
 {
 	public class ModsLoader
 	{
-		private const string ModsFolderName = "mods";
-		private const string MetaFileName = "meta.json";
+		public static ModsLoader Instance { get; private set; }
+		public readonly VersionInfo CurrentPluginVersion;
+		public readonly VersionInfo CurrentGameVersion;
+		public List<AssetBundle> LoadedBundles => _loadedBundles;
 
-		public List<SiegeUpModBase> GetInstalledMods()
+		private readonly List<AssetBundle> _loadedBundles = new List<AssetBundle>();
+
+		public ModsLoader(string pluginVer, string gameVer)
+		{
+			Instance = this;
+			CurrentGameVersion = new VersionInfo(gameVer);
+			CurrentPluginVersion = new VersionInfo(pluginVer);
+		}
+
+		public List<SiegeUpModBase> LoadInstalledMods()
 		{
 			List<SiegeUpModBase> mods = new List<SiegeUpModBase>();
 
-			string modsPath = Path.Combine(Application.persistentDataPath, ModsFolderName);
-			string platformName = GetCurrentPlatformName().ToLower();
-			FileUtils.CheckOrCreateDirectory(modsPath);
-			if (platformName == null)
-				return mods;
-			var modsFolders = Directory.GetDirectories(modsPath);
-			foreach (var folder in modsFolders)
+			var platform = Utils.GetCurrentPlatform();
+			if (platform == PlatformShortName.Unsupported)
 			{
-				var mod = TryLoadBundle(Path.Combine(folder, platformName));
+				Debug.LogError("Unable to load mods for current platform");
+				return mods;
+			}
+			foreach (var meta in FileUtils.GetInstalledModsMeta())
+			{
+				if (!meta.TryGetBuildInfo(platform, out SiegeUpModBundleInfo buildInfo) || !CanLoad(buildInfo))
+					continue;
+				var mod = LoadBundle(FileUtils.GetBundlePath(meta, platform));
 				if (mod == null)
 					continue;
 				mods.Add(mod);
@@ -29,41 +41,37 @@ namespace SiegeUp.ModdingPlugin
 			return mods;
 		}
 
-		public SiegeUpModBase TryLoadBundle(string path)
+		public SiegeUpModBase LoadBundle(string path)
 		{
 			var loadedAssetBundle = AssetBundle.LoadFromFile(path);
 			if (loadedAssetBundle == null)
 			{
-				Debug.Log("Failed to load AssetBundle from " + path);
+				Debug.LogWarning($"Failed to load AssetBundle from {path}");
 				return null;
 			}
 			var bundleAssets = loadedAssetBundle.LoadAllAssets<SiegeUpModBase>();
-			loadedAssetBundle.Unload(false);
+
 			if (bundleAssets.Length < 1)
+			{
+				loadedAssetBundle.Unload(true);
+				Debug.LogWarning($"Failed to load AssetBundle from {path} because it has no {nameof(SiegeUpModBase)} asset");
 				return null;
+			}
+			_loadedBundles.Add(loadedAssetBundle);
 			return bundleAssets[0];
 		}
 
-		private string GetCurrentPlatformName()
+		public void UnloadMods()
 		{
-			switch (Application.platform)
-			{
-				case RuntimePlatform.WindowsPlayer:
-				case RuntimePlatform.WindowsEditor:
-					return PlatformShortName.Windows.ToString();
-				case RuntimePlatform.Android:
-					return PlatformShortName.Android.ToString();
-				case RuntimePlatform.LinuxPlayer:
-				case RuntimePlatform.LinuxEditor:
-					return PlatformShortName.Linux.ToString();
-				case RuntimePlatform.OSXPlayer:
-				case RuntimePlatform.OSXEditor:
-					return PlatformShortName.MacOS.ToString();
-				case RuntimePlatform.IPhonePlayer:
-					return PlatformShortName.IOS.ToString();
-				default:
-					return null;
-			};
+			foreach (var bundle in _loadedBundles)
+				bundle.Unload(true);
+			_loadedBundles.Clear();
+		}
+
+		public bool CanLoad(SiegeUpModBundleInfo buildInfo)
+		{
+			return CurrentPluginVersion.Supports(buildInfo.PluginVersion)
+				&& CurrentGameVersion.Supports(buildInfo.GameVersion);
 		}
 	}
 }

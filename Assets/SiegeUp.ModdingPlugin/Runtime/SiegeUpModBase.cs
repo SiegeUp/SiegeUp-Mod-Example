@@ -1,5 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace SiegeUp.ModdingPlugin
 {
@@ -7,34 +11,43 @@ namespace SiegeUp.ModdingPlugin
 	public class SiegeUpModBase : ScriptableObject
 	{
 		public SiegeUpModMeta ModInfo = new SiegeUpModMeta();
-
-		[System.Serializable]
-		public class ObjectRecord
-        {
-			public GameObject Prefab;
-			public Translation Name;
-			public Texture2D Icon;
-        }
-
 		public List<ObjectRecord> ObjectRecords = new List<ObjectRecord>();
 
 		public List<GameObject> GetAllObjects()
-        {
-			return ObjectRecords.ConvertAll(i => i.Prefab);
-        }
-
-		public bool ValidateMetaInfo()
 		{
-			if (string.IsNullOrEmpty(ModInfo.ModName))
-				ModInfo.ModName = name;
-			if (!FileUtils.IsValidFolderName(ModInfo.ModName))
-			{
+			return ObjectRecords.ConvertAll(i => i.Prefab);
+		}
+
+		public bool Validate()
+		{
+			RemoveNullRecords();
+			var result = ModInfo.Validate(this);
 #if UNITY_EDITOR
-				UnityEditor.EditorUtility.DisplayDialog("Error", "Invalid mod name.\nMod name should not contain the following chars:\n" + string.Join(" ", System.IO.Path.GetInvalidPathChars()), "Ok");
+			EditorUtility.SetDirty(this);
 #endif
-				return false;
-			}
-			return true;
+			return result;
+		}
+
+		private void RemoveNullRecords()
+		{
+			ObjectRecords = ObjectRecords.Where(x => x != null && x.Prefab).ToList();
+		}
+
+		public void OnBuilded(PlatformShortName platform)
+		{
+			var pluginVer = SiegeUpModdingPluginConfig.Instance.PluginVersion;
+			ModInfo.UpdateBuildInfo(new SiegeUpModBundleInfo(platform, pluginVer, "1.1.102r19"));
+#if UNITY_EDITOR
+			EditorUtility.SetDirty(this);
+#endif
+		}
+
+		[System.Serializable]
+		public class ObjectRecord
+		{
+			public GameObject Prefab;
+			public Translation Name;
+			public Texture2D Icon;
 		}
 	}
 }

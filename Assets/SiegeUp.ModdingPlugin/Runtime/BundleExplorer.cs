@@ -1,35 +1,41 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 namespace SiegeUp.ModdingPlugin
 {
+	[ExecuteInEditMode]
 	public class BundleExplorer : MonoBehaviour
 	{
 		[SerializeField]
 		private List<GameObject> _spawnedObjects = new List<GameObject>();
 		[SerializeField]
-		private SiegeUp.ModdingPlugin.SiegeUpModBase _loadedMod;
-		private ModsLoader _modsLoader = new ModsLoader();
+		private List<SiegeUpModBase> _loadedMods = new List<SiegeUpModBase>();
+		private ModsLoader _modsLoader;
+		private const int ObjectsInterval = 2;
+
+		private void OnEnable()
+		{
+			_modsLoader = new ModsLoader(SiegeUpModdingPluginConfig.Instance.PluginVersion, "1.1.102r19");
+		}
 
 		public void LoadBundle(string path)
 		{
-			if (_loadedMod != null)
-				UnloadAllBundles();
-			_loadedMod = _modsLoader.TryLoadBundle(path);
+			_loadedMods.Add(_modsLoader.LoadBundle(path));
 		}
 
 		public void SpawnObjects()
 		{
-			int x = 0;
-			var objects = _loadedMod.GetAllObjects();
+			int x = _spawnedObjects.Count * ObjectsInterval;
+			var objects = _loadedMods.Last().GetAllObjects();
 			foreach (var prefab in objects)
 			{
 				var go = Instantiate(prefab, new Vector3(x, 0, 0), Quaternion.identity, transform);
 				_spawnedObjects.Add(go);
-				x += 2;
+				x += ObjectsInterval;
 			}
 		}
 
@@ -38,8 +44,8 @@ namespace SiegeUp.ModdingPlugin
 			foreach (var go in _spawnedObjects)
 				DestroyImmediate(go.gameObject);
 			_spawnedObjects.Clear();
-			AssetBundle.UnloadAllAssetBundles(true);
-			_loadedMod = null;
+			_modsLoader.UnloadMods();
+			_loadedMods.Clear();
 		}
 
 		private void OnDestroy()
@@ -63,16 +69,19 @@ namespace SiegeUp.ModdingPlugin
 			{
 				var selectedPath = EditorUtility.OpenFilePanel("Select mod file", "", "");
 				_targetObject.LoadBundle(selectedPath);
+				EditorUtility.SetDirty(_targetObject);
 			}
 
-			if (GUILayout.Button("Spawn objects"))
+			if (GUILayout.Button("Spawn objects from last loaded bundle"))
 			{
 				_targetObject.SpawnObjects();
+				EditorUtility.SetDirty(_targetObject);
 			}
 
-			if (GUILayout.Button("Unload bundle"))
+			if (GUILayout.Button("Unload all bundles"))
 			{
 				_targetObject.UnloadAllBundles();
+				EditorUtility.SetDirty(_targetObject);
 			}
 		}
 	}

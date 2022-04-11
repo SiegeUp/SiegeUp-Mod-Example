@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: New Siege Up Mod
   m_EditorClassIdentifier: 
   ModInfo:
-    ModName: Sample mod
+    ModName: Sample_mod
     AuthorName: Some author
     Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
       sed tortor eu nunc lobortis mattis et in justo. Suspendisse vehicula sem a
@@ -22,5 +22,52 @@ MonoBehaviour:
       malesuada ipsum mattis tristique. Vivamus vel varius nisi. Donec non fringilla
       mauris. Nunc blandit laoreet ipsum ac volutpat.
     Version: 1
-  Decorations:
-  - {fileID: 2527351084644776482, guid: b887859c080fefa4c8995609abf5f2f1, type: 3}
+    BuildsInfo:
+    - Platform: 1
+      PluginVersion:
+        Major: 1
+        Minor: 3
+        Revision: 0
+      GameVersion:
+        Major: 1
+        Minor: 1
+        Revision: 102
+    - Platform: 3
+      PluginVersion:
+        Major: 1
+        Minor: 3
+        Revision: 0
+      GameVersion:
+        Major: 1
+        Minor: 1
+        Revision: 102
+    - Platform: 2
+      PluginVersion:
+        Major: 1
+        Minor: 3
+        Revision: 0
+      GameVersion:
+        Major: 1
+        Minor: 1
+        Revision: 102
+    - Platform: 4
+      PluginVersion:
+        Major: 1
+        Minor: 3
+        Revision: 0
+      GameVersion:
+        Major: 1
+        Minor: 1
+        Revision: 102
+    - Platform: 5
+      PluginVersion:
+        Major: 1
+        Minor: 3
+        Revision: 0
+      GameVersion:
+        Major: 1
+        Minor: 1
+        Revision: 102
+    ModSourceUrl: 
+    Id: 17835161fc434d81b2f0b8e70dbb2c3d
+  ObjectRecords: []

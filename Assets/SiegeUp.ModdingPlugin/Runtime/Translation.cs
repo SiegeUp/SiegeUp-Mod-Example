@@ -1,27 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 namespace SiegeUp.ModdingPlugin
 {
-    [CreateAssetMenu(menuName = "Translation (Mod)")]
-    public class Translation : ScriptableObject
-    {
-        [TextArea]
-        public string MasterText;
+	[CreateAssetMenu(menuName = "Translation (Mod)")]
+	public class Translation : ScriptableObject
+	{
+		[TextArea]
+		public string MasterText;
 
-        [System.Serializable]
-        public struct Localization
-        {
-            public SystemLanguage LanguageId;
-            [TextArea]
-            public string Text;
-            [TextArea]
-            public string AutoText;
-        }
+		[System.Serializable]
+		public struct Localization
+		{
+			public SystemLanguage LanguageId;
+			[TextArea]
+			public string Text;
+			[TextArea]
+			public string AutoText;
+		}
 
-        public List<Localization> Localizations = new List<Localization>();
-
-    }
+		public List<Localization> Localizations = new List<Localization>();
+	}
 }

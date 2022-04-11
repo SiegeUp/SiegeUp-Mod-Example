@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEditor;
 using UnityEngine;
-using UnityEditor;
 
 [CustomPropertyDrawer(typeof(SiegeUp.ModdingPlugin.SiegeUpModBase.ObjectRecord))]
 public class SiegeUpObjectDrawer : PropertyDrawer
@@ -10,6 +8,7 @@ public class SiegeUpObjectDrawer : PropertyDrawer
 	{
 		return EditorGUI.GetPropertyHeight(property, label, property.isExpanded);
 	}
+
 	public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 	{
 		try
