@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SiegeUp.ModdingPlugin
 {
 	public class ModCommandsExecutor : MonoBehaviour
 	{
-		public Dictionary<string, Func<List<string>, IEnumerator>> Arguments = new Dictionary<string, Func<List<string>, IEnumerator>>()
+		public Dictionary<string, Func<IEnumerable<string>, IEnumerator>> Arguments = 
+			new Dictionary<string, Func<IEnumerable<string>, IEnumerator>>()
 		{
-			{ "add", args => DownloadModFromGit(args[1]) },
-			{ "list", args => ListInstalledMods()},
-			{ "update", args => UpdateMod(args[1])},
-			{ "remove", args => RemoveMod(args[1])},
+			{ "add", args => DownloadModFromGit(string.Join(" ", args)) },
+			{ "list", args => ListInstalledMods(args)},
+			{ "update", args => UpdateMod(string.Join(" ", args)) },
+			{ "remove", args => RemoveMod(string.Join(" ", args)) },
 		};
 
 		public void Execute(List<string> args)
@@ -22,7 +24,7 @@ namespace SiegeUp.ModdingPlugin
 				Debug.LogError($"Unknown command argument: {args[0]}");
 				return;
 			}
-			StartCoroutine(Arguments[args[0]](args));
+			StartCoroutine(Arguments[args[0]](args.Skip(1)));
 		}
 
 		public static IEnumerator DownloadModFromGit(string url)
@@ -84,15 +86,19 @@ namespace SiegeUp.ModdingPlugin
 			yield return DownloadModFromGit(meta.ModSourceUrl);
 		}
 
-		public static IEnumerator ListInstalledMods()
+		public static IEnumerator ListInstalledMods(IEnumerable<string> args)
 		{
+			var argument = args.FirstOrDefault();
+			var showOnlySupported = string.IsNullOrEmpty(argument) ? false : argument.StartsWith("support");
+
 			bool anyModsListed = false;
 			foreach (var mod in FileUtils.GetInstalledModsMeta())
 			{
 				anyModsListed = true;
 				var hasBuild = mod.TryGetBuildInfo(Utils.GetCurrentPlatform(), out SiegeUpModBundleInfo buildInfo);
 				var isSupported = hasBuild && (ModsLoader.Instance?.CanLoad(buildInfo) ?? true);
-				Debug.Log($"{mod.ModName} v{mod.Version} by {mod.AuthorName}" + (isSupported ? "" : " {unsupported}"));
+				if (!showOnlySupported || isSupported)
+					Debug.Log($"{mod.ModName} v{mod.Version} by {mod.AuthorName}" + (isSupported ? "" : " {unsupported}"));
 #if !UNITY_EDITOR
 				yield return null;
 #endif

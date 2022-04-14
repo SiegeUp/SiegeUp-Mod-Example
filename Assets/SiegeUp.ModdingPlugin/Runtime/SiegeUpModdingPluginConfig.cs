@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -29,29 +28,9 @@ namespace SiegeUp.ModdingPlugin
 			}
 		}
 
-		public string PluginVersion
-		{
-			get
-			{
-				if (string.IsNullOrEmpty(pluginVersion))
-					PluginVersion = FindPluginVersion();
-				return pluginVersion;
-			}
-			private set
-			{
-				pluginVersion = value;
-#if UNITY_EDITOR
-				EditorUtility.SetDirty(this);
-#endif
-			}
-		}
-
 		[SerializeField]
 		private string modsFolder;
-		[SerializeField]
-		private string pluginVersion;
 		private const string ConfigFolderName = "SiegeUp Modding Plugin Config";
-		private const string PluginName = "com.siegeup.moddingplugin";
 
 		private void OnEnable() => Instance = this;
 
@@ -75,35 +54,6 @@ namespace SiegeUp.ModdingPlugin
 				Instance = asset;
 			}
 		}
-
-		[InitializeOnLoadMethod]
-		private static void UpdatePluginVersion()
-		{
-			Instance.PluginVersion = FindPluginVersion();
-		}
 #endif
-
-		public static string FindPluginVersion()
-		{
-			var pluginInfo = FileUtils.GetInstalledPackageInfo(PluginName);
-			if (pluginInfo != null)
-			{
-				return GetVersionFromJsonString(pluginInfo);
-			}
-			var packageManifest = FileUtils.GetPackageManifest(PluginName);
-			if (packageManifest != null)
-			{
-				var versionInfo = packageManifest.FirstOrDefault(x => x.Contains("\"version\":"));
-				return GetVersionFromJsonString(versionInfo);
-			}
-			return "Unknown";
-		}
-
-		private static string GetVersionFromJsonString(string infoLine)
-		{
-			infoLine = infoLine.Replace(",", "");
-			int separatorIndex = infoLine.LastIndexOf(':');
-			return infoLine.Substring(separatorIndex + 3, infoLine.Length - separatorIndex - 4);
-		}
 	}
 }

@@ -9,14 +9,15 @@ namespace SiegeUp.ModdingPlugin
 		public readonly VersionInfo CurrentPluginVersion;
 		public readonly VersionInfo CurrentGameVersion;
 		public List<AssetBundle> LoadedBundles => _loadedBundles;
+		public const string Version = "1.3.2";
 
 		private readonly List<AssetBundle> _loadedBundles = new List<AssetBundle>();
 
-		public ModsLoader(string pluginVer, string gameVer)
+		public ModsLoader(string gameVersion)
 		{
 			Instance = this;
-			CurrentGameVersion = new VersionInfo(gameVer);
-			CurrentPluginVersion = new VersionInfo(pluginVer);
+			CurrentGameVersion = new VersionInfo(gameVersion);
+			CurrentPluginVersion = new VersionInfo(Version);
 		}
 
 		public List<SiegeUpModBase> LoadInstalledMods()

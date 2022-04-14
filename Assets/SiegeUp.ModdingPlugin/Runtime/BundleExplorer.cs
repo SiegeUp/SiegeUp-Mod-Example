@@ -19,7 +19,7 @@ namespace SiegeUp.ModdingPlugin
 
 		private void OnEnable()
 		{
-			_modsLoader = new ModsLoader(SiegeUpModdingPluginConfig.Instance.PluginVersion, "1.1.102r19");
+			_modsLoader = new ModsLoader("1.1.102r19");
 		}
 
 		public void LoadBundle(string path)

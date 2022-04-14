@@ -35,8 +35,7 @@ namespace SiegeUp.ModdingPlugin
 
 		public void OnBuilded(PlatformShortName platform)
 		{
-			var pluginVer = SiegeUpModdingPluginConfig.Instance.PluginVersion;
-			ModInfo.UpdateBuildInfo(new SiegeUpModBundleInfo(platform, pluginVer, "1.1.102r19"));
+			ModInfo.UpdateBuildInfo(new SiegeUpModBundleInfo(platform, ModsLoader.Version, "1.1.102r19"));
 #if UNITY_EDITOR
 			EditorUtility.SetDirty(this);
 #endif

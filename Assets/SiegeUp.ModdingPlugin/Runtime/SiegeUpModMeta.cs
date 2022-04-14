@@ -28,16 +28,6 @@ namespace SiegeUp.ModdingPlugin
 
 			if (string.IsNullOrEmpty(ModName))
 				ModName = modBase.name;
-#if UNITY_EDITOR
-			if (ModName.Contains(' '))
-			{
-				UnityEditor.EditorUtility.DisplayDialog(
-					"Warning",
-					$"All spaces in the mod name have been replaced with '_' char due to some restrictions",
-					"Ok");
-			}
-#endif
-			ModName = ModName.Replace(' ', '_');
 
 			if (!FileUtils.IsValidFolderName(ModName))
 			{

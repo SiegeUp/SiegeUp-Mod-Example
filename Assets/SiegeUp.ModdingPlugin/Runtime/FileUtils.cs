@@ -156,22 +156,5 @@ namespace SiegeUp.ModdingPlugin
 				nameLength = path.Length - nameStartIndex;
 			return path.Substring(nameStartIndex, nameLength);
 		}
-
-		public static string GetInstalledPackageInfo(string name)
-		{
-			if (File.Exists(PackagesManifestPath))
-				return File
-					.ReadAllLines(PackagesManifestPath)
-					.FirstOrDefault(x => x.Contains(name));
-			return null;
-		}
-
-		public static string[] GetPackageManifest(string name)
-		{
-			return Directory
-				.GetFiles("Assets", "package.json", SearchOption.AllDirectories)
-				.Select(x => File.ReadAllLines(x))
-				.FirstOrDefault(x => x.FirstOrDefault(y => y.Contains(name)) != null);
-		}
 	}
 }
