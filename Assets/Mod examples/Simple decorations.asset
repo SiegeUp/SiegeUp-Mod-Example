@@ -17,52 +17,7 @@ MonoBehaviour:
     AuthorName: 
     Description: 
     Version: 1
-    BuildsInfo:
-    - Platform: 1
-      PluginVersion:
-        Major: 1
-        Minor: 3
-        Revision: 2
-      GameVersion:
-        Major: 1
-        Minor: 1
-        Revision: 102
-    - Platform: 3
-      PluginVersion:
-        Major: 1
-        Minor: 3
-        Revision: 2
-      GameVersion:
-        Major: 1
-        Minor: 1
-        Revision: 102
-    - Platform: 2
-      PluginVersion:
-        Major: 1
-        Minor: 3
-        Revision: 2
-      GameVersion:
-        Major: 1
-        Minor: 1
-        Revision: 102
-    - Platform: 4
-      PluginVersion:
-        Major: 1
-        Minor: 3
-        Revision: 2
-      GameVersion:
-        Major: 1
-        Minor: 1
-        Revision: 102
-    - Platform: 5
-      PluginVersion:
-        Major: 1
-        Minor: 3
-        Revision: 2
-      GameVersion:
-        Major: 1
-        Minor: 1
-        Revision: 102
+    BuildsInfo: []
     ModSourceUrl: 
     Id: a77f7eabbbc745d19f143bc741e8879b
   ObjectRecords:
