@@ -1,23 +1,17 @@
-﻿using System;
-
-namespace SiegeUp.ModdingPlugin
+﻿namespace SiegeUp.ModdingPlugin
 {
-	[Serializable]
 	public class VersionInfo
 	{
-		public int Major;
-		public int Minor;
-		public int Revision;
+		public int Major { get; private set; }
+		public int Minor { get; private set; }
+		public int Revision { get; private set; }
+
+		private const string DefaultVersion = "0.0.0";
 
 		public VersionInfo(string version)
 		{
-			var data = version.Split('.');
-			int revisionLength = data[2].IndexOf('r');
-			if (revisionLength <= 0)
-				revisionLength = data[2].Length;
-			Major = int.Parse(data[0]);
-			Minor = int.Parse(data[1]);
-			Revision = int.Parse(data[2].Substring(0, revisionLength));
+			version = string.IsNullOrEmpty(version) ? DefaultVersion : version;
+			ParseValuesFromString(version);
 		}
 
 		public VersionInfo(int major, int minor, int revision)
@@ -40,6 +34,17 @@ namespace SiegeUp.ModdingPlugin
 		public override string ToString()
 		{
 			return $"{Major}.{Minor}.{Revision}";
+		}
+
+		private void ParseValuesFromString(string value)
+		{
+			var data = value.Split('.');
+			int revisionLength = data[2].IndexOf('r');
+			if (revisionLength <= 0)
+				revisionLength = data[2].Length;
+			Major = int.Parse(data[0]);
+			Minor = int.Parse(data[1]);
+			Revision = int.Parse(data[2].Substring(0, revisionLength));
 		}
 	}
 }

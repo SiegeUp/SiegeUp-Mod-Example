@@ -78,7 +78,7 @@ namespace SiegeUp.ModdingPlugin
 
 		public static void CreateModMetaFile(string modDirectory, SiegeUpModMeta modInfo)
 		{
-			string manifestData = JsonUtility.ToJson(modInfo);
+			string manifestData = JsonUtility.ToJson(modInfo, true);
 			string filePath = Path.Combine(modDirectory, MetaFileName);
 			File.WriteAllText(filePath, manifestData);
 		}

@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEditor;
 #endif
 
-namespace SiegeUp.ModdingPlugin
+namespace SiegeUp.ModdingPlugin.DevUtils
 {
 	[ExecuteInEditMode]
 	public class BundleExplorer : MonoBehaviour

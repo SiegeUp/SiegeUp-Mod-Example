@@ -32,7 +32,6 @@ namespace SiegeUp.ModdingPlugin
 			{
 				map[0].assetBundleName = FileUtils.GetBundleFileName(modBase.ModInfo, SupportedPlatforms[platform]);
 				BuildAssetBundle(modBase, map, platform, modDirectory);
-				modBase.OnBuilded(SupportedPlatforms[platform]);
 				FileUtils.CreateModMetaFile(modDirectory, modBase.ModInfo);
 			}
 			AssetDatabase.Refresh();
@@ -40,9 +39,15 @@ namespace SiegeUp.ModdingPlugin
 
 		private static void BuildAssetBundle(SiegeUpModBase modBase, AssetBundleBuild[] map, BuildTarget targetPlatform, string outputDir)
 		{
+			modBase.ModInfo.TryGetBuildInfo(SupportedPlatforms[targetPlatform], out var prevBuildInfo);
+			modBase.UpdateBuildInfo(SupportedPlatforms[targetPlatform]);
 			var manifest = BuildPipeline.BuildAssetBundles(outputDir, map, BuildAssetBundleOptions.StrictMode, targetPlatform);
 			if (manifest != null)
+			{
 				Debug.Log($"Mod \"{modBase.ModInfo.ModName}\" for \"{SupportedPlatforms[targetPlatform]}\" platform was builded successfully!");
+				return;
+			}
+			modBase.UpdateBuildInfo(SupportedPlatforms[targetPlatform], prevBuildInfo);
 		}
 
 		static void RegeneratePrefabIds(SiegeUpModBase modBase)

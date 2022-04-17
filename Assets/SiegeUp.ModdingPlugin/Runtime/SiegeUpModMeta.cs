@@ -47,10 +47,15 @@ namespace SiegeUp.ModdingPlugin
 
 		public void UpdateBuildInfo(SiegeUpModBundleInfo bundleInfo)
 		{
-			var oldRecordIndex = BuildsInfo.FindIndex(x => x.Platform == bundleInfo.Platform);
+			RemoveBuildInfo(bundleInfo.Platform);
+			BuildsInfo.Add(bundleInfo);
+		}
+
+		public void RemoveBuildInfo(PlatformShortName platform)
+		{
+			var oldRecordIndex = BuildsInfo.FindIndex(x => x.Platform == platform);
 			if (oldRecordIndex != -1)
 				BuildsInfo.RemoveAt(oldRecordIndex);
-			BuildsInfo.Add(bundleInfo);
 		}
 
 		public bool TryGetBuildInfo(PlatformShortName platform, out SiegeUpModBundleInfo buildInfo)
@@ -64,14 +69,14 @@ namespace SiegeUp.ModdingPlugin
 	public class SiegeUpModBundleInfo
 	{
 		public PlatformShortName Platform;
-		public VersionInfo PluginVersion;
-		public VersionInfo GameVersion;
-
+		public string PluginVersion;
+		public string GameVersion;
+		
 		public SiegeUpModBundleInfo(PlatformShortName platform, string pluginVersion, string gameVersion)
 		{
 			Platform = platform;
-			PluginVersion = new VersionInfo(pluginVersion);
-			GameVersion = new VersionInfo(gameVersion);
+			PluginVersion = pluginVersion;
+			GameVersion = gameVersion;
 		}
 	}
 }

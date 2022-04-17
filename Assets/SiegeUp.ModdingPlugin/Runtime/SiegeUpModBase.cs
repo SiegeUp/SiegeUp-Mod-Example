@@ -33,9 +33,17 @@ namespace SiegeUp.ModdingPlugin
 			ObjectRecords = ObjectRecords.Where(x => x != null && x.Prefab).ToList();
 		}
 
-		public void OnBuilded(PlatformShortName platform)
+		public void UpdateBuildInfo(PlatformShortName platform)
 		{
-			ModInfo.UpdateBuildInfo(new SiegeUpModBundleInfo(platform, ModsLoader.Version, "1.1.102r19"));
+			UpdateBuildInfo(platform, new SiegeUpModBundleInfo(platform, ModsLoader.Version, "1.1.102r19"));
+		}
+
+		public void UpdateBuildInfo(PlatformShortName platform, SiegeUpModBundleInfo prevBuildInfo)
+		{
+			if (prevBuildInfo == null)
+				ModInfo.RemoveBuildInfo(platform);
+			else
+				ModInfo.UpdateBuildInfo(prevBuildInfo);
 #if UNITY_EDITOR
 			EditorUtility.SetDirty(this);
 #endif

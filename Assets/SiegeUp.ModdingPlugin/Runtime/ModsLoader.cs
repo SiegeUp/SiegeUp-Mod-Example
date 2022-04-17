@@ -71,8 +71,8 @@ namespace SiegeUp.ModdingPlugin
 
 		public bool CanLoad(SiegeUpModBundleInfo buildInfo)
 		{
-			return CurrentPluginVersion.Supports(buildInfo.PluginVersion)
-				&& CurrentGameVersion.Supports(buildInfo.GameVersion);
+			return CurrentPluginVersion.Supports(new VersionInfo(buildInfo.PluginVersion))
+				&& CurrentGameVersion.Supports(new VersionInfo(buildInfo.GameVersion));
 		}
 	}
 }
