@@ -1,6 +1,6 @@
 {
   "name": "com.siegeup.moddingplugin",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "displayName": "SiegeUp Modding Plugin",
   "description": "This package provides basic tools and instruments for creating SiegeUp mods.",
   "unity": "2019.4",
